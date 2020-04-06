@@ -211,3 +211,14 @@ class snakeTamer:
             ret = "unbekant \U0001F4A9"
         
         return ret
+    
+    
+    # get current Temperetures
+    def getTemperature(self):
+        if not os.path.exists('SnakeTamer/weather-data.json'):
+            return -1 # no weather data available
+        
+        f = open("SnakeTamer/weather-data.json", "r")
+        if f.mode == 'r':
+            c = json.loads(f.read())
+            return {"temp": c["main"]["temp"], "feels_like": c["main"]["feels_like"]}

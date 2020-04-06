@@ -136,13 +136,16 @@ for data in reply.json().get('result'):
                 response['text'] = f"{snake_name} wurde geheilt und hat nun {amt} Gesungheit".encode("utf8")
             else:
                 response['text'] = "Beispiel: /snake [name] stats \nDu kannst alle deine Schlangen mit /mysnakes sehen.".encode("utf8")
-            #response['text'] = f"Ausgewählte Schlange: {snake_name}".encode("utf8")
+
             requests.post(f"{BASE_URL}/sendMessage", response)
         
         elif message.startswith('/wetter'):
-            response['text'] = "Das Wetter:\nAktuell ist es ".encode("utf8") + tamer.weatherCondToText(tamer.currentWeatherCondition()).encode("utf8")
+            weather_condition = tamer.weatherCondToText(tamer.currentWeatherCondition())
+            weather_temp = repr(round(tamer.getTemperature()["temp"], 1))
+            weather_feel = repr(round(tamer.getTemperature()["feels_like"], 1))
+            response['text'] = f"Das Wetter:\nAktuell ist es {weather_condition} \n\n".encode("utf8")
+            response['text'] += f"Gefühlt wie {weather_feel} \U00002103, \nTatsächlich ist es aber {weather_temp} \U00002103 warm".encode("utf8")
             requests.post(f"{BASE_URL}/sendMessage", response)
-            
         else:
             response['text'] = f"Hast du dich vertippt?".encode("utf8")
             requests.post(f"{BASE_URL}/sendMessage", response)
