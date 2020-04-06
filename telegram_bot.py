@@ -66,6 +66,7 @@ for data in reply.json().get('result'):
             for snake in tamer.snakes:
                 if not snake.isAlive():
                     response['text'] += "Schlange ".encode("utf8") + snake.name.encode("utf8") + " ist verstorben. \n".encode("utf8")
+                    tamer.snakes.remove(snake)
             
             requests.post(f"{BASE_URL}/sendMessage", response)
         
@@ -78,7 +79,6 @@ for data in reply.json().get('result'):
         
         elif message.startswith('/mysnakes'):
             # check if tamer has snakes
-            print(tamer.mySnakes())
             if tamer.mySnakes() != 0:
                 response['text'] = f"Hier sind alle deine Schlangen \U0001F40D \n\n".encode("utf8")
                 
@@ -123,8 +123,9 @@ for data in reply.json().get('result'):
                 snake_level = snake.level
                 snake_health = snake.health
                 snake_hunger = snake.hunger
+                snake_real_name = snake.name
                 snake_happiness = snake.happiness
-                response['text'] = f"{snake_name} \U0001F40D    level: {snake_level} \n\n".encode("utf8")
+                response['text'] = f"{snake_real_name} \U0001F40D    level: {snake_level} \n\n".encode("utf8")
                 response['text'] += f"\U00002764 \U000027f6   {snake_health} \n".encode("utf8") 
                 response['text'] += f"\U0001F357 \U000027f6   {snake_hunger} \n".encode("utf8") 
                 response['text'] += f"\U0001F600 \U000027f6   {snake_happiness} \n".encode("utf8")               

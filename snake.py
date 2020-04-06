@@ -55,6 +55,7 @@ class snake:
         DiffSec = int(str(time.time()).split('.')[0]) - int(self.last_eaten)
         deathTime = round((DiffSec / 60) / (3*60))
         lostHunger = round((DiffSec / 60) / 30)        # every 30 Minutes a Snake loses 1 Hunger point
+        print(f"deathTime: {deathTime}, \t lostHunger: {lostHunger}")
         
         # when the lost hunger is greater then last saved hunger AND the snake asn't ate for 3 hours
         # then the snake is dead

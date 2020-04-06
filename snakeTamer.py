@@ -76,7 +76,7 @@ class snakeTamer:
     # release a Snake into the Wildness
     def releaseSnake(self, snake_name):
         for snake in self.snakes:
-            if snake.name == snake_name:
+            if snake.name.lower() == snake_name.lower():
                 print("snake removed")
                 self.snakes.remove(snake)
     
@@ -84,21 +84,21 @@ class snakeTamer:
     # feed a snake
     def feedSnake(self, snake_name):
         for snake in self.snakes:
-            if snake.name == snake_name:
+            if snake.name.lower() == snake_name.lower():
                     snake.eat()
                     return snake.hunger
     
     # heals a snake
     def healSnake(self, snake_name):
         for snake in self.snakes:
-            if snake.name == snake_name:
+            if snake.name.lower() == snake_name.lower():
                     snake.heal()
                     return snake.health
     
     # return the whole snake object
     def getSnake(self, snake_name):
         for snake in self.snakes:
-            if snake.name == snake_name:
+            if snake.name.lower() == snake_name.lower():
                 return snake
     
     
@@ -118,7 +118,7 @@ class snakeTamer:
                 "last_action" : self.last_action
             }
             
-        file = open("SnakeTamer/"+self.userID+".snaketamer", "w")
+        file = open("SnakeTamer/"+self.userID+".snaketamer", "w+")
         file.write(json.dumps(t))
         file.close()
         return t
@@ -139,9 +139,9 @@ class snakeTamer:
                 content = json.loads(f.read())
                 #self.last_action = content["last_action"]
                 for sn in content["snakes"]:
-                   self.snakes.append(snake(str(sn["name"]), int(sn["level"]), int(sn["health"]), int(sn["hunger"]), int(sn["happiness"]), int(sn["last_eaten"]), int(sn["last_levelUp"])))
+                    self.snakes.append(snake(str(sn["name"]), int(sn["level"]), int(sn["health"]), int(sn["hunger"]), int(sn["happiness"]), int(sn["last_eaten"]), int(sn["last_levelUp"])))
             else:
-                print("profil konnte nicht geladen werden.")
+                print("Profil konnte nicht geladen werden.")
             return
     
     
