@@ -131,10 +131,10 @@ for data in reply.json().get('result'):
                 response['text'] += f"\U0001F600 \U000027f6   {snake_happiness} \n".encode("utf8")               
             elif snake_action.startswith('feed'):
                 amt = tamer.feedSnake(snake_name)
-                response['text'] = f"{snake_name} wurde gefüttern und hat jetzt weniger Hunger {amt}".encode("utf8")
+                response['text'] = f"{snake_name} wurde gefüttern und hat jetzt weniger Hunger, {amt} \U0001F357".encode("utf8")
             elif snake_action.startswith('heal'):
                 amt = tamer.healSnake(snake_name)
-                response['text'] = f"{snake_name} wurde geheilt und hat nun {amt} Gesungheit".encode("utf8")
+                response['text'] = f"{snake_name} wurde geheilt und hat nun {amt} Gesungheitspunkte \U00002764".encode("utf8")
             else:
                 response['text'] = "Beispiel: /snake [name] stats \nDu kannst alle deine Schlangen mit /mysnakes sehen.".encode("utf8")
 
@@ -142,8 +142,8 @@ for data in reply.json().get('result'):
         
         elif message.startswith('/wetter'):
             weather_condition = tamer.weatherCondToText(tamer.currentWeatherCondition())
-            weather_temp = repr(round(tamer.getTemperature()["temp"]))
-            weather_feel = repr(round(tamer.getTemperature()["feels_like"]))
+            weather_temp = int(round(tamer.getTemperature()["temp"]))
+            weather_feel = int(round(tamer.getTemperature()["feels_like"]))
             response['text'] = f"Das Wetter:\nAktuell ist es {weather_condition} \n\n".encode("utf8")
             response['text'] += f"Gefühlt wie {weather_feel} \U00002103, \nTatsächlich ist es aber {weather_temp} \U00002103 warm".encode("utf8")
             requests.post(f"{BASE_URL}/sendMessage", response)
