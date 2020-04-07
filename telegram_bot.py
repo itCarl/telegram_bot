@@ -142,8 +142,8 @@ for data in reply.json().get('result'):
         
         elif message.startswith('/wetter'):
             weather_condition = tamer.weatherCondToText(tamer.currentWeatherCondition())
-            weather_temp = repr(round(tamer.getTemperature()["temp"], 1))
-            weather_feel = repr(round(tamer.getTemperature()["feels_like"], 1))
+            weather_temp = repr(round(tamer.getTemperature()["temp"]))
+            weather_feel = repr(round(tamer.getTemperature()["feels_like"]))
             response['text'] = f"Das Wetter:\nAktuell ist es {weather_condition} \n\n".encode("utf8")
             response['text'] += f"Gefühlt wie {weather_feel} \U00002103, \nTatsächlich ist es aber {weather_temp} \U00002103 warm".encode("utf8")
             requests.post(f"{BASE_URL}/sendMessage", response)
