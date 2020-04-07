@@ -17,7 +17,8 @@ class snakeTamer:
     
     def __del__(self):
         self.saveProfile(0)
-    
+        self.snakes.clear()
+        
     def __getitem__(self,key):
         return getattr(self,key)
     
