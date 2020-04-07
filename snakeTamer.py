@@ -135,13 +135,12 @@ class snakeTamer:
             self.saveProfile(1)
             
         else:
-            if len(self.snakes) < 1:
-                f = open("SnakeTamer/"+self.userID+".snaketamer", "r")
-                if f.mode == 'r':
-                    content = json.loads(f.read())
-                    self.last_action = content["last_action"]
-                    for sn in content["snakes"]:
-                        self.snakes.append(snake(str(sn["name"]), int(sn["level"]), int(sn["health"]), int(sn["hunger"]), int(sn["happiness"]), int(sn["last_eaten"]), int(sn["last_levelUp"])))
+            f = open("SnakeTamer/"+self.userID+".snaketamer", "r")
+            if f.mode == 'r':
+                content = json.loads(f.read())
+                self.last_action = content["last_action"]
+                for sn in content["snakes"]:
+                    self.snakes.append(snake(str(sn["name"]), int(sn["level"]), int(sn["health"]), int(sn["hunger"]), int(sn["happiness"]), int(sn["last_eaten"]), int(sn["last_levelUp"])))
             else:
                 print("Profil konnte nicht geladen werden.")
             return
